@@ -100,7 +100,7 @@ fun DialogBoxWithImage(message: String, onConfermation: () -> Unit, onDismissReq
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(16.dp)
-                .background(Color.LightGray)
+//                .background(Color.LightGray)
         ) {
             Column {
                 Image(
@@ -117,16 +117,19 @@ fun DialogBoxWithImage(message: String, onConfermation: () -> Unit, onDismissReq
                         .padding(top = 10.dp)
                         .fillMaxWidth(),
                     textAlign = TextAlign.Center,
-                    color = Color.Green,
+                    color = Color.Magenta,
                     fontWeight = FontWeight.Bold,
-                    fontSize = 15.sp
+                    fontSize = 18.sp
                 )
 
-                Row {
-                    TextButton(onClick = { onConfermation() }) {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.End
+                ) {
+                    TextButton(onClick = { onConfermation() }, modifier = Modifier.padding(8.dp)) {
                         Text("Confirm")
                     }
-                    TextButton(onClick = { onConfermation() }) {
+                    TextButton(onClick = { onConfermation() }, modifier = Modifier.padding(8.dp)) {
                         Text("Dismiss")
                     }
                 }
@@ -150,20 +153,21 @@ fun AlertDialogExamplePreview() {
         Button(onClick = { openDialBox = true }) { Text("Open Dialog box") }
         Button(onClick = { openMinimulDialogBox = true }) { Text("Open Minimal Dialog box") }
         Button(onClick = { openDialogBoxWithImage = true }) { Text("Open Dialog box with Image") }
-        when {
-            openDialBox -> AlertDialgExample(
+
+        if (openDialBox) {
+            AlertDialgExample(
                 onDissmissRequest = { openDialBox = false },
                 onConfermation = { openDialBox = true },
                 dialogTitle = "My Dialog Title",
                 dialogText = "Are you sure you want to delete this file",
                 icon = Icons.Default.MailOutline
             )
-
-            openMinimulDialogBox -> MinmalDialog(onDismissRequest = {
+        } else if (openMinimulDialogBox) {
+            MinmalDialog(onDismissRequest = {
                 openMinimulDialogBox = false
             })
-
-            openDialogBoxWithImage -> DialogBoxWithImage(
+        } else if (openDialogBoxWithImage) {
+            DialogBoxWithImage(
                 message = "This is a dialog box with Image exampl",
                 onConfermation = { openDialogBoxWithImage = false },
                 onDismissRequest = { openDialogBoxWithImage = false })
