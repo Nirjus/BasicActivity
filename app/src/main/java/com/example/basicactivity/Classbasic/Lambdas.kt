@@ -1,6 +1,6 @@
 package com.example.basicactivity.Classbasic
 
-val trick:()-> Unit = {
+val trick: () -> Unit = {
     println("I trick in the game")
 }
 
@@ -8,11 +8,13 @@ val treat:() -> Unit = {
     print("I gave treat to my poor friends")
 }
 
-fun trickOrTreat(isTrick: Boolean, extraTreat: (Int) -> String):()-> Unit{
+fun trickOrTreat(isTrick: Boolean, extraTreat: ((Int) -> String)? = null):()-> Unit{
     if(isTrick){
         return trick
     }else{
-        println(extraTreat(5))
+        if(extraTreat != null) {
+            println(extraTreat(5))
+        }
         return treat
     }
 }
@@ -27,6 +29,12 @@ fun main(){
     }
     val trickFun = trickOrTreat(true, extraTreat = {numTreat(15)})
     val treatFun = trickOrTreat(false, {numTreat(25)})
+    val noTreatFun = trickOrTreat(false)
     trickFun()
     treatFun()
+    noTreatFun()
+    repeat(5, action = {
+        noTreatFun()
+        println()
+    })
 }
