@@ -23,7 +23,7 @@ fun main(){
     val tera = trick
     tera()
     trick()
-  println("================ ⛔ ================")
+    println("================ ⛔ ================")
     val numTreat:(Int) -> String = {
          "$it is a string return"
     }
